@@ -129,7 +129,7 @@ time.sleep(waitTime)
 mc.postToChat(solveForXstep4)
 solveForXstep5 = "x = " + str(round(xSolution))
 time.sleep(waitTime)
-mc.postToChat(solveForXstep4)
+mc.postToChat(solveForXstep5)
 
 
 solution = "(" + str(round(xSolution,2)) + ", " + str(round(ySolution,2)) + ")"
