@@ -11,6 +11,7 @@ sigDigits = 3
 graphMin = -50
 graphMax = 50
 bah = block.WOOL.id
+posp = mc.player.getPos()
 
 #first line
 #x coeff
@@ -91,8 +92,8 @@ def parenD(x,y,z):
 
 
 # ax + by = c
-def equationAXBYC(a,b,c,h,color):
-    pos = mc.player.getPos()
+def equationAXBYC(a,b,c,h,color,pos):
+    #pos = mc.player.getPos()
     leftMargin = 49
     dBack = 20
     mc.setBlocks(pos.x-leftMargin,pos.y+h,pos.z-dBack, pos.x+leftMargin,pos.y+h+5,pos.z-dBack, block.AIR.id)
@@ -105,8 +106,8 @@ def equationAXBYC(a,b,c,h,color):
     numberBlocks(c,pos.x+5,pos.y+h,pos.z-dBack)
 
 # ax = c + by
-def equationAXCBY(a,b,c,h,color):
-    pos = mc.player.getPos()
+def equationAXCBY(a,b,c,h,color,pos):
+    #pos = mc.player.getPos()
     leftMargin = 49
     dBack = 20
     mc.setBlocks(pos.x-leftMargin,pos.y+h,pos.z-dBack, pos.x+leftMargin,pos.y+h+5,pos.z-dBack, block.AIR.id)
@@ -119,8 +120,8 @@ def equationAXCBY(a,b,c,h,color):
     yblock(pos.x+19,pos.y+h,pos.z-dBack,color)
 
 # a(c+by) + by = c
-def equationAcbyBYC(a,b1,c1,b2,c2,h,color):
-    pos = mc.player.getPos()
+def equationAcbyBYC(a,b1,c1,b2,c2,h,color,pos):
+    #pos = mc.player.getPos()
     leftMargin = 49
     dBack = 20
     mc.setBlocks(pos.x-leftMargin,pos.y+h,pos.z-dBack, pos.x+leftMargin,pos.y+h+5,pos.z-dBack, block.AIR.id)
@@ -139,26 +140,54 @@ def equationAcbyBYC(a,b1,c1,b2,c2,h,color):
     equalsign(pos.x,pos.y+h,pos.z-dBack)
     numberBlocks(c2,pos.x+5,pos.y+h,pos.z-dBack)
 
+# x = c + b(y)
+def equationXCBY(b,c,y,h,color,pos):
+    #pos = mc.player.getPos()
+    leftMargin = 49
+    dBack = 20
+    mc.setBlocks(pos.x-leftMargin,pos.y+h,pos.z-dBack, pos.x+leftMargin,pos.y+h+5,pos.z-dBack, block.AIR.id)
+    xblock(pos.x-5,pos.y+h,pos.z-dBack,color)
+    equalsign(pos.x,pos.y+h,pos.z-dBack)
+    numberBlocks(c,pos.x+5,pos.y+h,pos.z-dBack)
+    plussign(pos.x+12,pos.y+h,pos.z-dBack)
+    numberBlocks(b,pos.x+17,pos.y+h,pos.z-dBack)
+    parenC(pos.x+19,pos.y+h,pos.z-dBack)
+    numberBlocks(y,pos.x+21,pos.y+h,pos.z-dBack)
+    parenD(pos.x+28,pos.y+h,pos.z-dBack)
+
+
+# x = c + b
+def equationXCB(b,c,h,color,pos):
+    #pos = mc.player.getPos()
+    leftMargin = 49
+    dBack = 20
+    mc.setBlocks(pos.x-leftMargin,pos.y+h,pos.z-dBack, pos.x+leftMargin,pos.y+h+5,pos.z-dBack, block.AIR.id)
+    xblock(pos.x-5,pos.y+h,pos.z-dBack,color)
+    equalsign(pos.x,pos.y+h,pos.z-dBack)
+    numberBlocks(c,pos.x+5,pos.y+h,pos.z-dBack)
+    plussign(pos.x+12,pos.y+h,pos.z-dBack)
+    numberBlocks(b,pos.x+17,pos.y+h,pos.z-dBack)
+
 # c+ by = c2
-def equationCBYC(b,c1,c2,h,color):
-    pos = mc.player.getPos()
+def equationCBYC(b,c1,c2,h,color,pos):
+    #pos = mc.player.getPos()
     leftMargin = 50
     dBack = 20
     mc.setBlocks(pos.x-leftMargin,pos.y+h,pos.z-dBack, pos.x+leftMargin,pos.y+h+5,pos.z-dBack, block.AIR.id)
     numberBlocks(c1,pos.x-19,pos.y+h,pos.z-dBack)
     plussign(pos.x-12,pos.y+h,pos.z-dBack)
-    numberBlocks(b2,pos.x-7,pos.y+h,pos.z-dBack)
+    numberBlocks(b,pos.x-7,pos.y+h,pos.z-dBack)
     yblock(pos.x-5,pos.y+h,pos.z-dBack,color)
     equalsign(pos.x,pos.y+h,pos.z-dBack)
     numberBlocks(c2,pos.x+5,pos.y+h,pos.z-dBack)
 
 #by = c + c
-def equationBYCC(b,c1,c2,h,color):
-    pos = mc.player.getPos()
+def equationBYCC(b,c1,c2,h,color,pos):
+    #pos = mc.player.getPos()
     leftMargin = 50
     dBack = 20
     mc.setBlocks(pos.x-leftMargin,pos.y+h,pos.z-dBack, pos.x+leftMargin,pos.y+h+5,pos.z-dBack, block.AIR.id)
-    numberBlocks(b2,pos.x-12,pos.y+h,pos.z-dBack)
+    numberBlocks(b,pos.x-7,pos.y+h,pos.z-dBack)
     yblock(pos.x-5,pos.y+h,pos.z-dBack,color)
     equalsign(pos.x,pos.y+h,pos.z-dBack)
     numberBlocks(c2,pos.x+5,pos.y+h,pos.z-dBack)
@@ -166,15 +195,17 @@ def equationBYCC(b,c1,c2,h,color):
     numberBlocks(c1,pos.x+17,pos.y+h,pos.z-dBack)
 
 #by = c
-def equationBYC(b,c, h,color):
-    pos = mc.player.getPos()
+def equationBYC(b,c,h,color,pos):
+    #pos = mc.player.getPos()
     leftMargin = 50
     dBack = 20
     mc.setBlocks(pos.x-leftMargin,pos.y+h,pos.z-dBack, pos.x+leftMargin,pos.y+h+5,pos.z-dBack, block.AIR.id)
-    numberBlocks(b2,pos.x-7,pos.y+h,pos.z-dBack)
+    numberBlocks(b,pos.x-7,pos.y+h,pos.z-dBack)
     yblock(pos.x-5,pos.y+h,pos.z-dBack,color)
     equalsign(pos.x,pos.y+h,pos.z-dBack)
-    numberBlocks(c2,pos.x+5,pos.y+h,pos.z-dBack)
+    numberBlocks(c,pos.x+5,pos.y+h,pos.z-dBack)
+
+    
 
     
 line2 = str(a2) + "x + " + str(b2) + "y = " + str(c2)
@@ -203,11 +234,11 @@ for xi in range(graphMin,graphMax):
 
 line1 = str(a1) + "x + " + str(b1) + "y = " + str(c1)
 mc.postToChat(line1)
-pos = mc.player.getPos()
+
 leftMargin = 10
 dBack = 12
-mc.setBlocks(pos.x-leftMargin,pos.y,pos.z-dBack, pos.x+leftMargin,pos.y+12,pos.z-dBack, block.AIR.id)
-equationAXBYC(a1,b1,c1,6,1)
+mc.setBlocks(posp.x-leftMargin,posp.y,posp.z-dBack, posp.x+leftMargin,posp.y+12,posp.z-dBack, block.AIR.id)
+equationAXBYC(a1,b1,c1,10,1,posp)
 
 #Line 2                
 for xi in range(graphMin,graphMax):
@@ -215,7 +246,7 @@ for xi in range(graphMin,graphMax):
         if (xi*a2 + yi*b2 == c2):
                 mc.setBlock(xi,2,yi, block.WOOL.id, 5)
 mc.postToChat(line2)
-equationAXBYC(a2,b2,c2,0,5)
+equationAXBYC(a2,b2,c2,4,5,posp)
 
 time.sleep(waitTime)
 
@@ -223,16 +254,16 @@ time.sleep(waitTime)
 mc.postToChat("Solve equation1 for x")
 
 line1x = str(a1) + "x = " + str(c1) + " - " + str(b1) + "y"
-pos = mc.player.getPos()
-mc.setBlocks(pos.x, pos.y, pos.z+3, pos.x, pos.y+a1, pos.z+3, block.WOOL.id, 11)
+#pos = mc.player.getPos()
+#mc.setBlocks(pos.x, pos.y, pos.z+3, pos.x, pos.y+a1, pos.z+3, block.WOOL.id, 11)
 time.sleep(waitTime)
 mc.postToChat(line1x)
-equationAXCBY(a1,0-b1,c1,6,1)
+equationAXCBY(a1,0-b1,c1,10,1,posp)
 
 line1x = "x = " + str(c1) + "/" + str(a1) + " - " + str(b1) + "y/" + str(a1)
 time.sleep(waitTime)
 mc.postToChat(line1x)
-equationAXCBY(a1/a1,0-b1/a1,c1/a1,6,1)
+equationAXCBY(a1/a1,0-b1/a1,c1/a1,10,1,posp)
 
 line1x = "x = " + str(round(c1/a1,sigDigits))  + " - " + str(round(b1/a1,sigDigits)) + "y" 
 time.sleep(waitTime)
@@ -245,7 +276,7 @@ mc.postToChat("Plug it into equation 2 for x")
 line2y = str(a2) + "(" + str(round(c1/a1,sigDigits))  + " - " + str(round(b1/a1,sigDigits)) + ")y + " + str(b2) + "y = " + str(c2)
 time.sleep(waitTime)
 mc.postToChat(line2y)
-equationAcbyBYC(a2,0-b1/a1,c1/a1,b2,c2,0,5)
+equationAcbyBYC(a2,0-b1/a1,c1/a1,b2,c2,4,5,posp)
 
 #solve equation2  for y
 mc.postToChat("Solve equation2 for y")
@@ -254,7 +285,7 @@ time.sleep(waitTime)
 mc.postToChat("Distribute")
 line2y = str(a2) + "(" + str(round(c1/a1,sigDigits))  + ") - " + str(a2) + "(" + str(round(b1/a1,sigDigits)) + "y) + " + str(b2) + "y = " + str(c2)
 mc.postToChat(line2y)
-equationAcbyBYC(1,0-a2*b1/a1,a2*c1/a1,b2,c2,0,5)
+equationAcbyBYC(1,0-a2*b1/a1,a2*c1/a1,b2,c2,4,5,posp)
 
 
 line2y = str(round(a2*c1/a1,2))  + " - (" + str(round(a2*b1/a1,sigDigits)) + ")y + " + str(b2) + "y = " + str(c2)
@@ -265,23 +296,23 @@ time.sleep(waitTime)
 mc.postToChat("Combine like terms")
 line2y = str(round(a2*c1/a1,sigDigits))  + " + " + str(round(b2 - a2*b1/a1,sigDigits)) + "y = " + str(c2)
 mc.postToChat(line2y)
-equationCBYC(b2-a2*b1/a1,a2*c1/a1,c2,0,5)
+equationCBYC(b2-a2*b1/a1,a2*c1/a1,c2,4,5,posp)
 
 line2y = str(round(b2-a2*b1/a1,sigDigits)) + "y = " + str(c2) + " - " + str(round(a2*c1/a1,sigDigits))
 time.sleep(waitTime)
 mc.postToChat(line2y)
-equationBYCC(b2-a2*b1/a1,0-a2*c1/a1,c2,0,5)
+equationBYCC(b2-a2*b1/a1,0-a2*c1/a1,c2,4,5,posp)
 
 line2y =str(round(b2 - a2*b1/a1,sigDigits)) + "y = " + str(round(c2- a2*c1/a1,sigDigits))
 time.sleep(waitTime)
 mc.postToChat(line2y)
-equationBYC(b2-a2*b1/a1, c2-a2*c1/a1, 0,5)
+equationBYC(b2-a2*b1/a1, c2-a2*c1/a1, 4,5,posp)
 
 line2y = "y = " + str(round((c2 - a2*c1/a1)/(b2 - a2*b1/a1),sigDigits))
 ySolution = (c2 - a2*c1/a1)/(b2 - a2*b1/a1)
 time.sleep(waitTime)
 mc.postToChat(line2y)
-equationBYC(1, ySolution,0,5)
+equationBYC(1, ySolution,4,5,posp)
 
 #plug y back in to equation 1
 mc.postToChat("Plug it back in to equation 1 for y")
@@ -289,17 +320,20 @@ mc.postToChat("Plug it back in to equation 1 for y")
 line1x = "x = " + str(round(c1/a1,sigDigits))  + " - " + str(round(b1/a1,sigDigits)) + "(" + str(round(ySolution,sigDigits)) + ")"
 time.sleep(waitTime)
 mc.postToChat(line1x)
+equationXCBY(0-b1/a1,c1/a1,ySolution,10,1,posp)
 
 mc.postToChat("Solve for x")
 
 line1x = "x = " + str(round(c1/a1,sigDigits))  + " - " + str(round(b1/a1*ySolution,sigDigits))
 time.sleep(waitTime)
 mc.postToChat(line1x)
+equationXCB(0-b1/a1*ySolution,c1/a1,10,5,posp)
 
 xSolution = c1/a1 - b1/a1*ySolution
 line1x = "x = " + str(round(xSolution,sigDigits))
 time.sleep(waitTime)
 mc.postToChat(line1x)
+equationXCB(0,xSolution,10,5,posp)
 
 
 solution = "(" + str(round(xSolution,sigDigits)) + ", " + str(round(ySolution,sigDigits)) + ")"
