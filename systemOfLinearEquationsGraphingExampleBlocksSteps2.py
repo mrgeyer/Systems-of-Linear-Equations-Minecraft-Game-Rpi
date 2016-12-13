@@ -7,7 +7,7 @@ from fractions import gcd
 
 mc = minecraft.Minecraft.create()
 sigDigits = 3
-waitTime = 9
+waitTime = 8.46651
 graphMin =-50
 graphMax = 50
 bah= block.WOOL.id 
@@ -48,18 +48,26 @@ d1 = gcd(ySolution-yIntercept1, xSolution)
 #slopenumerator
 if d1 != 0:
   mn1 = (ySolution - yIntercept1)/d1
+else:
+  mn1 = ySolution - yIntercept1
 #slopedenominator
 if d1 != 0:
   md1 = xSolution/d1
+else:
+   md1 = xSolution
 m1 = mn1/md1
 
 d2 = gcd(ySolution-yIntercept2, xSolution)
 #slopenumerator
 if d2 != 0:
   mn2 = (ySolution - yIntercept2)/d2
+else:
+    mn2 = (ySolution - yIntercept2)
 #slopedenominator
 if d2 != 0:
  md2 = xSolution/d2
+else:
+    md2 = xSolution
 m2 = mn2/md2
 
 # y = m1*x + yIntercept1
@@ -111,8 +119,8 @@ def xblock(x,y,z, color):
     mc.setBlock(x+2,y+2,z, bah, color)
 
 def yblock(x,y,z, color):
-    mc.setBlocks(x,y,z,x+2,y,z, bah, color)
-    mc.setBlocks(x+2,y+1,z,x+2,y+3,z, bah, color)
+    mc.setBlocks(x+1,y,z,x+1,y+1,z, bah, color)
+    mc.setBlocks(x+2,y+2,z,x+2,y+3,z, bah, color)
     mc.setBlocks(x,y+2,z,x+1,y+2,z, bah, color)
     mc.setBlock(x,y+3,z, bah, color)
 
@@ -395,22 +403,39 @@ for xi in range(graphMin,graphMax):
 # axis
 mc.setBlocks(graphMin,0,   0, graphMax,0,  0, block.WOOL.id, 15)
 mc.setBlocks(   0,0,graphMin,   0,0,graphMax, block.WOOL.id, 15)
-'''
 
-'''
 line1 = str(a1) + "x + " + str(b1) + "y = " + str(c1)
-equationAXBYC(a1,b1,c1,17,1,posp)
+equationAXBYC(a1,b1,c1,11,1,posp)
                 
-mc.postToChat(line1)
-'''
+# quadrants
+#Q1
+mc.setBlocks(2,0,2, 4,0,2, bah, cyan)
+#Q2
+mc.setBlocks(2,0,-2, 4,0,-2, bah, magenta)
+mc.setBlocks(2,0,-4, 4,0,-4, bah, magenta)
+#Q3
+mc.setBlocks(-2,0,-2, -4,0,-2, bah, pink)
+mc.setBlocks(-2,0,-4, -4,0,-4, bah, pink)
+mc.setBlocks(-2,0,-6, -4,0,-6, bah, pink)
+#Q4
+mc.setBlocks(-2,0,2, -4,0,2, bah, magenta)
+mc.setBlock(-2,0,4, bah, magenta)
+mc.setBlock(-3,0,5, bah, magenta)
+mc.setBlock(-4,0,6, bah, magenta)
+mc.setBlock(-3,0,7, bah, magenta)
+mc.setBlock(-2,0,8, bah, magenta)
 
-'''
-equationAXBYC(a2,b2,c2,11,5,posp)
+
+equationAXBYC(a2,b2,c2,4,5,posp)
 line2 = str(a2) + "x + " + str(b2) + "y = " + str(c2)
-
+mc.postToChat(line1)
 mc.postToChat(line2)
-
 time.sleep(waitTime)
+time.sleep(waitTime)
+mc.postToChat(line1)
+mc.postToChat(line2)
+time.sleep(waitTime)
+
 
 #convert to slope intercept form
 mc.postToChat("We need to convert to slope intercept form")
@@ -426,22 +451,27 @@ mc.postToChat(step)
 time.sleep(waitTime)
 
 newline1 = str(b1) + "y = " + str(c1) + " - " + str(a1) + "x" 
-equationBYECAX(0-a1,b1,c1,17,1,posp)
+equationBYECAX(0-a1,b1,c1,11,1,posp)
 mc.postToChat(newline1)
 time.sleep(waitTime)
+
+if a1 < 0:
+  newline1 = str(b1) + "y = " + str(c1) + " + " + str(0-a1) + "x" 
+  mc.postToChat(newline1)
+  time.sleep(waitTime)
 
 step = "Divide both sides by " + str(b1)
 mc.postToChat(step)
 time.sleep(waitTime)
 
-newline1 = str(b1) + "y/" + str(b1) + " = " + str(c1) + "/"  + str(b1) + " - " + str(a1) + "x/"  + str(b1)    
+newline1 = str(b1) + "y/" + str(b1) + " = " + str(c1) + "/"  + str(b1) + " + " + str(0-a1) + "x/"  + str(b1)    
 mc.postToChat(newline1)
 time.sleep(waitTime)
 
 dab1 = gcd(a1,b1)
 newline1 = "y = " + str(round(c1/b1,sigDigits)) + " + (" + str(0-a1/dab1) + "/" + str(b1/dab1) + ")x"
-#equationBYECAX(0-a1/b1,0,c1/b1,17,1,posp)
-equationBMX(c1/b1,0-a1,b1,17,1,posp)
+#equationBYECAX(0-a1/b1,0,c1/b1,11,1,posp)
+equationBMX(c1/b1,mn1,md1,11,1,posp)
 mc.postToChat(newline1)
 time.sleep(waitTime)
 
@@ -455,22 +485,28 @@ mc.postToChat(step)
 time.sleep(waitTime)
 
 newline2 = str(b2) + "y = " + str(c2) + " - " + str(a2) + "x" 
-equationBYECAX(0-a2,b2,c2,11,5,posp)
+equationBYECAX(0-a2,b2,c2,4,5,posp)
 mc.postToChat(newline2)
 time.sleep(waitTime)
+
+if a2 < 0:
+  newline2 = str(b2) + "y = " + str(c2) + " + " + str(0-a2) + "x" 
+  mc.postToChat(newline2)
+  time.sleep(waitTime)
+
 
 step = "Divide both sides by " + str(b2)
 mc.postToChat(step)
 time.sleep(waitTime)
 
-newline2 = str(b2) + "y/" + str(b2) + " = " + str(c2) + "/"  + str(b2) + " - " + str(a2) + "x/"  + str(b2)    
+newline2 = str(b2) + "y/" + str(b2) + " = " + str(c2) + "/"  + str(b2) + " + " + str(0-a2) + "x/"  + str(b2)    
 mc.postToChat(newline2)
 time.sleep(waitTime)
 
 dab2 = gcd(a2,b2)
 newline2 = "y = " + str(round(c2/b2,sigDigits)) + " + (" + str(0-a2/dab2) + "/" + str(b2/dab2) + ")x"
-#equationBYECAX(0-a2/b2,0,c2/b2,11,5,posp)
-equationBMX(c2/b2,0-a2,b2,11,5,posp)
+#equationBYECAX(0-a2/b2,0,c2/b2,4,5,posp)
+equationBMX(c2/b2,mn2,md2,4,5,posp)
 mc.postToChat(newline2)
 time.sleep(waitTime)
 
@@ -479,20 +515,20 @@ msg = "Now let's graph " + newline1
 mc.postToChat(msg)
 time.sleep(waitTime)
 
-msg = "Go to the y-intercept (" + str(c1/b1) + ", 0)"
+msg = "Go to the y-intercept (0, " + str(c1/b1) + ")"
 mc.postToChat(msg)
-mc.setBlock(0,1,c1/b1, bah, 1)
-mc.player.setPos(0,2,c1/b1)
+mc.setBlock(c1/b1,1,0, bah, 1)
+mc.player.setPos(c1/b1,2,0)
 time.sleep(waitTime)
 
-if (a1 > 0 and b1 <0) or (a1 < 0 and b1 > 0):
+if (m1<0):
   msg = "Go down " + str(abs(a1/dab1))
 else:
   msg = "Go up " + str(abs(a1/dab1))
 msg = msg + " and over " + str(abs(b1/dab1))
 mc.postToChat(msg)
-mc.setBlock(b1/dab1,1,c1/b1-a1/dab1, bah, 1)
-mc.player.setPos(0,2,c1/b1)
+mc.setBlock(c1/b1-a1/dab1,1,b1/dab1, bah, 1)
+#mc.player.setPos(c1/b1-a1/dab1,2,b1/dab1)
 time.sleep(waitTime)
 
 msg = "Now draw the line"
@@ -500,7 +536,7 @@ mc.postToChat(msg)
 #Line 1
 for xi in range(graphMin,graphMax):
     for yi in range(graphMin,graphMax):
-        if (xi*a1 + yi*b1 == c1):
+        if (xi*b1 + yi*a1 == c1):
                 mc.setBlock(xi,1,yi, block.WOOL.id, 1)
 time.sleep(waitTime)
 
@@ -508,20 +544,20 @@ msg = "Now let's graph " + newline2
 mc.postToChat(msg)
 time.sleep(waitTime)
 
-msg = "Go to the y-intercept (" + str(c2/b2) + ", 0)"
+msg = "Go to the y-intercept (0, " + str(c2/b2) + ")"
 mc.postToChat(msg)
-mc.setBlock(0,2,c2/b2, bah, 5)
-mc.player.setPos(0,3,c2/b2)
+mc.setBlock(c2/b2,2,0, bah, 5)
+mc.player.setPos(c2/b2,3,0)
 time.sleep(waitTime)
 
-if (a2 > 0 and b2 <0) or (a2 < 0 and b2 > 0):
+if (m2 <0):
   msg = "Go down " + str(abs(a2/dab2))
 else:
   msg = "Go up " + str(abs(a2/dab2))
 msg = msg + " and over " + str(abs(b2/dab2))
 mc.postToChat(msg)
-mc.setBlock(b2/dab2,2,c2/b2-a2/dab2, bah, 5)
-mc.player.setPos(0,3,c2/b2)
+mc.setBlock(c2/b2-a2/dab2,2,b2/dab2, bah, 5)
+#mc.player.setPos(c2/b2-a2/dab2,3,b2/dab2)
 time.sleep(waitTime)
 
 msg = "Now draw the line"
@@ -529,7 +565,7 @@ mc.postToChat(msg)
 #Line 2 
 for xi in range(graphMin,graphMax):
     for yi in range(graphMin,graphMax):
-        if (xi*a2 + yi*b2 == c2):
+        if (xi*b2 + yi*a2 == c2):
                 mc.setBlock(xi,2,yi, block.WOOL.id, 5)
 time.sleep(waitTime)
 msg = "Do you see the intersection?"
@@ -540,4 +576,4 @@ time.sleep(waitTime)
 solution = "(" + str(round(xSolution,2)) + ", " + str(round(ySolution,2)) + ")"
 time.sleep(waitTime)
 mc.postToChat(solution)
-mc.setBlock(xSolution, 3, ySolution, block.GOLD_BLOCK.id) 
+mc.setBlock(ySolution, 3, xSolution, block.GOLD_BLOCK.id) 
